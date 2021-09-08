@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "801988928826",
+    "project_id": "clothes-app-570f1",
+    "storage_bucket": "clothes-app-570f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801988928826:android:0d1391caea09473e2d5c03",
+        "android_client_info": {
+          "package_name": "com.futureMind.clothesApp.clothesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801988928826-c0cnu5bd7gp2mvumabb38r0seflev1ds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.futureMind.clothesApp.clothesapp",
+            "certificate_hash": "b0ccd68b60df5663c69f391b446b02db29524322"
+          }
+        },
+        {
+          "client_id": "801988928826-iovdo8r3sm04bs7v95niq9fj2gkvl7jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-N7vMLG1tn_f44oAcUZDiEyBrdzkX3sM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801988928826-iovdo8r3sm04bs7v95niq9fj2gkvl7jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
