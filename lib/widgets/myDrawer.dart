@@ -1,4 +1,5 @@
 import 'package:clothesapp/screens/login.dart';
+import 'package:clothesapp/settings/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +65,12 @@ class MyDrawer extends StatelessWidget {
             height: size.height * 0.01,
           ),
           ListTile(
+            onTap: (){
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => SettingsScreen()));
+            },
             title: Text('Language',
               style: TextStyle(
                   fontSize: size.width * 0.05,

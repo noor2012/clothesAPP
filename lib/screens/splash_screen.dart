@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:clothesapp/settings/terms_and_conditions.dart';
 import 'package:clothesapp/widgets/wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -8,11 +12,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  String selectedValue = "ar";
+  late SharedPreferences _preferences;
+
   @override
   void initState() {
-    super.initState();
-    Timer(Duration(seconds: 6), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>Wrapper()));
+    goToNextScreen();
+    SharedPreferences.getInstance().then((value) {
+      _preferences = value;
+      setState(() {
+
+        languageName = _preferences.getString("languageName") ?? 'ar';
+      });
+    });
+  }
+  goToNextScreen() async {
+    Timer(Duration(seconds: 6) ,() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      bool isAccepted = (prefs.getBool('isAccepted') ?? false);
+      if (!isAccepted) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => TermsAndCond()));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Wrapper()));
+      }
     });
   }
 

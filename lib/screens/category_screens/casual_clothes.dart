@@ -41,6 +41,7 @@ class _CasualClothesState extends State<CasualClothes> {
                         child: GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_)=> DetailsScreen(
+                              productId: snapshot.data!.docs[i].id,
                               product: snapshot.data!.docs[i]['product-img'],
                               title: snapshot.data!.docs[i]['title'],
                               storeName: snapshot.data!.docs[i]['storeName'],

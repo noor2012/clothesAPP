@@ -1,6 +1,6 @@
-import 'package:clothesapp/model/auth.dart';
 import 'package:clothesapp/screens/homePage.dart';
 import 'package:clothesapp/screens/login.dart';
+import 'package:clothesapp/service/auth.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {

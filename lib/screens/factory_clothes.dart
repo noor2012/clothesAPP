@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'details_factory.dart';
 
 class FactoryClothes extends StatelessWidget {
-  const FactoryClothes({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,22 @@ class FactoryClothes extends StatelessWidget {
               if (snapshot.hasData) {
                 return Container(
                     decoration: BoxDecoration(color: Colors.white60),
-                    height: size.height * 0.3,
+                    height: size.height ,
                     child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (_, i) {
                           return GestureDetector(
                             onTap: (){
-                              // Navigator.push(context, MaterialPageRoute(builder: (_)=>DetailsFactory()));
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=>DetailsFactory(
+                                product: snapshot.data!.docs[i]['img-product'],
+                                title: snapshot.data!.docs[i]['title'],
+                                storeName: snapshot.data!.docs[i]['storeName'],
+                                des: snapshot.data!.docs[i]['des'],
+                                discount: snapshot.data!.docs[i]['discount'],
+                                rat: snapshot.data!.docs[i]['rat'],
+                                price: snapshot.data!.docs[i]['price'],
+                              )));
                             },
                             child: Container(
                               decoration: BoxDecoration(),
