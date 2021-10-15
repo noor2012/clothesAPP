@@ -1,7 +1,8 @@
-import 'package:clothesapp/model/cart.dart';
+import 'dart:convert';
 import 'package:clothesapp/model/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   var product;
@@ -19,12 +20,26 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-List<CartItems> cart =[];
+List<CartItem> cart =[];
 
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+@override
+  void initState() {
+    super.initState();
+    _prefs.then((value){
+      if(value.containsKey('cart')){
+        var carts = value.getString('cart');
+        json.decode(carts.toString()).forEach((cartItem){
+          print(cartItem);
+        });
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    CartItems cart = Provider.of<CartItems>(context);
+    CartItem cart = Provider.of<CartItem>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(

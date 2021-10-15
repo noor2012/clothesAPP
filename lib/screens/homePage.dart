@@ -1,14 +1,17 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:clothesapp/model/cart.dart';
+import 'package:clothesapp/model/cartItem.dart';
+import 'package:clothesapp/model/product_model.dart';
 import 'package:clothesapp/screens/details_factory.dart';
 import 'package:clothesapp/screens/details_screen.dart';
 import 'package:clothesapp/screens/factory_clothes.dart';
 import 'package:clothesapp/screens/searchTap.dart';
 import 'package:clothesapp/screens/topProduct.dart';
+import 'package:clothesapp/service/fetch_topProduct.dart';
 import 'package:clothesapp/widgets/category.dart';
 import 'package:clothesapp/widgets/myDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -20,9 +23,12 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-List _total_carts = [];
+
 class _HomePageState extends State<HomePage> {
-  List<Item> _items =[];
+  List<ProductModel> productdata = [];
+
+  final auth = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -40,8 +46,8 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(15),
                         color: Colors.white30
                       ),
-                      child: Consumer<CartItems>(builder: (context,cart,child){
-                        return Text("${cart.itemCount}",
+                      child: Consumer<CartItem>(builder: (context,cart,child){
+                        return Text("0",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'Cairo',
@@ -99,6 +105,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     getSliderImageFromDb();
     super.initState();
+    setState(() {
+      productdata = product;
+    });
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>

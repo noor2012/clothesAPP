@@ -111,7 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             // if (globalKey.currentState!.validate()) {
                             //   globalKey.currentState!.save();
                             //   try {
-                            //     auth.Signin(
+                            //     auth.SignIn(
                             //         email.text, password.text);
                             //
                             //     Navigator.pushReplacement(
