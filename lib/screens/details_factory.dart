@@ -9,7 +9,7 @@ class DetailsFactory extends StatefulWidget {
   String des;
   String discount;
   String price;
-  double rat;
+  num rat;
 
   DetailsFactory({
     this.product,

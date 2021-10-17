@@ -38,6 +38,7 @@ dependencies:
   flutter_phoenix:
   provider:
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

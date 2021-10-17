@@ -48,7 +48,7 @@ class _TopProductState extends State<TopProduct> {
                                 des: snapshot.data!.docs[i]['des'],
                                 rat: snapshot.data!.docs[i]['rat'],
                                 discount: snapshot.data!.docs[i]['discount'],
-                                price: snapshot.data!.docs[i]['price'],
+                                price: snapshot.data!.docs[i]['price'].toString(),
                               )));
                         },
                         child: Container(

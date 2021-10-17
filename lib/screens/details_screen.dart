@@ -17,7 +17,7 @@ class DetailsScreen extends StatefulWidget {
   String des;
   String discount;
   var price;
-  double rat;
+  num rat;
 
   DetailsScreen(
       {required this.productId,
@@ -255,18 +255,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
               onPressed: () {
                 _prefs.then((value) async {
+                  List<CartItem> cart;
                   if (value.containsKey("cart")) {
+                    List<dynamic> dynamicCart=List.from(json.decode(value.getString("cart")!));
+                    cart= dynamicCart.map((e) => CartItem.fromJson(e)).toList();
                   } else {
-                    List totalCart = [];
-                    CartItem cart = CartItem();
-                    cart.price = widget.price.toString();
-                    cart.qty = _quantity;
-                    cart.title = widget.title;
-                    cart.grandTotal = widget.price * _quantity;
-                    totalCart.add(cart);
-                    value.setString('cart', json.encode(cart.price).toString());
-                   
+                    cart=[];
                   }
+                  cart.removeWhere(((element) => element.id==widget.productId));
+                  CartItem cartItem = CartItem();
+                  cartItem.price = widget.price.toString();
+                  cartItem.qty = _quantity;
+                  cartItem.title = widget.title;
+                  cartItem.img = widget.product;
+                  cartItem.grandTotal = int.tryParse(widget.price.toString())! * _quantity;
+                  cartItem.id=widget.productId;
+                  cart.add(cartItem);
+                  value.setString('cart', json.encode(cart));
+
                   final ScaffoldMessengerState addToCartMsg =
                       ScaffoldMessenger.of(context);
                   addToCartMsg.showSnackBar(

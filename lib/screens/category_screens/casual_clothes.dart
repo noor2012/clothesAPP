@@ -107,7 +107,7 @@ class _CasualClothesState extends State<CasualClothes> {
                                       right: size.height * .15,
                                       bottom: size.height * .001,
                                       child: Text(
-                                        snapshot.data!.docs[i]['price'],
+                                        snapshot.data!.docs[i]['price'].toString(),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Cairo',

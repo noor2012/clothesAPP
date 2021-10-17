@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clothesapp/model/cartItem.dart';
@@ -16,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'cart_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +35,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    _prefs.then((value){
+      if(value.containsKey('cart')){
+        List cart=json.decode(value.getString("cart")!);
+        cartItemsCount=cart.length;
+      }else{
+        cartItemsCount=0;
+      }
+      });
     return Scaffold(
           appBar: AppBar(
             actions: [
@@ -47,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white30
                       ),
                       child: Consumer<CartItem>(builder: (context,cart,child){
-                        return Text("0",
+                        return Text(cartItemsCount.toString(),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'Cairo',
@@ -68,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (_) => CartScreen()));
+                      builder: (_) => CartScreen(size: size)));
                 },
               ),
               IconButton(
@@ -100,7 +111,8 @@ class _HomePageState extends State<HomePage> {
 
   int _index = 0;
   int _dataLength = 1;
-
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  int cartItemsCount=0;
   @override
   void initState() {
     getSliderImageFromDb();
@@ -108,6 +120,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       productdata = product;
     });
+
+
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
@@ -260,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                 des: snapshot.data!.docs[i]['des'],
                                 discount: snapshot.data!.docs[i]['discount'],
                                 rat: snapshot.data!.docs[i]['rat'],
-                                price: snapshot.data!.docs[i]['price'],
+                                price: snapshot.data!.docs[i]['price'].toString(),
                               )));
                             },
                             child: Container(
@@ -439,7 +453,7 @@ class _HomePageState extends State<HomePage> {
                                     right: size.height * .15,
                                     bottom: size.height * .001,
                                     child: Text(
-                                      _total_carts[i]['price'],
+                                      _total_carts[i]['price'].toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Cairo',
